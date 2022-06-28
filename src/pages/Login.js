@@ -33,6 +33,11 @@ class Login extends Component {
       history.push('/game');
     }
 
+    goSettings = () => {
+      const { history } = this.props;
+      history.push('/settings');
+    }
+
     render() {
       const { name, email, btnDisalbled } = this.state;
       return (
@@ -66,6 +71,13 @@ class Login extends Component {
             disabled={ btnDisalbled }
           >
             Play
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.goSettings }
+          >
+            Settings
           </button>
         </form>
       );
