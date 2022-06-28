@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import fetchApi from '../services';
 
 class Login extends Component {
     state = {
@@ -23,8 +25,12 @@ class Login extends Component {
       this.validateEmail();
     }
 
-    handleClick = () => {
-      console.log('oi');
+    handleClick = async () => {
+      const { history } = this.props;
+      const result = await fetchApi();
+      const { token } = result;
+      localStorage.setItem('token', token);
+      history.push('/game');
     }
 
     render() {
@@ -65,5 +71,11 @@ class Login extends Component {
       );
     }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
