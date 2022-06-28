@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import fetchApi from '../services';
+import { loginCreator } from '../redux/action';
 
 class Login extends Component {
     state = {
@@ -25,8 +27,12 @@ class Login extends Component {
       this.validateEmail();
     }
 
-    handleClick = async () => {
-      const { history } = this.props;
+    handleClick = async (e) => {
+      const { dispatch, history } = this.props;
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const formProps = Object.fromEntries(formData);
+      dispatch(loginCreator(formProps));
       const result = await fetchApi();
       const { token } = result;
       localStorage.setItem('token', token);
@@ -41,7 +47,7 @@ class Login extends Component {
     render() {
       const { name, email, btnDisalbled } = this.state;
       return (
-        <form>
+        <form onSubmit={ this.handleClick }>
           <label htmlFor="name">
             Nome
             <input
@@ -65,9 +71,9 @@ class Login extends Component {
             />
           </label>
           <button
-            type="button"
+            type="submit"
             data-testid="btn-play"
-            onClick={ this.handleClick }
+            // onClick={ this.handleClick }
             disabled={ btnDisalbled }
           >
             Play
@@ -88,6 +94,7 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect()(Login);
