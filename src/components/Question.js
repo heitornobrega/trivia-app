@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 class Question extends Component {
   render() {
-    const { question, allAnswers, category, nextQuestion, correctAnswer } = this.props;
+    const {
+      question,
+      allAnswers,
+      category,
+      nextQuestion,
+      correctAnswer,
+      isPainted } = this.props;
     return (
       <>
         <h3 data-testid="question-text">{question}</h3>
@@ -17,6 +23,7 @@ class Question extends Component {
                   type="button"
                   onClick={ nextQuestion }
                   data-testid={ `wrong-answer-${index}` }
+                  className={ isPainted ? 'wrong-answer' : '' }
                 >
                   {answear}
                 </button>
@@ -27,6 +34,7 @@ class Question extends Component {
                   type="button"
                   onClick={ nextQuestion }
                   data-testid="correct-answer"
+                  className={ isPainted ? 'correct-answer' : '' }
                 >
                   {answear}
                 </button>
@@ -44,6 +52,7 @@ Question.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
   allAnswers: PropTypes.instanceOf(Array).isRequired,
   nextQuestion: PropTypes.func.isRequired,
+  isPainted: PropTypes.bool.isRequired,
 
 };
 

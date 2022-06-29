@@ -13,6 +13,7 @@ class Game extends Component {
     question: '',
     correctAnswer: '',
     allAnswers: [],
+    isPainted: false,
   }
 
   async componentDidMount() {
@@ -38,6 +39,12 @@ class Game extends Component {
     }
   }
 
+  waitAnswer = () => {
+    this.setState({ isPainted: true });
+    const halfSecond = 500;
+    setTimeout(this.nextQuestion, halfSecond);
+  }
+
   nextQuestion = () => {
     const { questionIndex, allQuestions } = this.state;
     const nextIndex = questionIndex + 1;
@@ -48,13 +55,15 @@ class Game extends Component {
       correctAnswer: allQuestions[nextIndex].correct_answer,
       allAnswers: allQuestions[nextIndex]
         .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
+      isPainted: false,
     });
   }
 
   render() {
     const { name, email } = this.props;
-    const { category, question, correctAnswer, allAnswers } = this.state;
+    const { category, question, correctAnswer, allAnswers, isPainted } = this.state;
     const randNumber = 0.5;
+    const randomList = allAnswers.sort(() => Math.random() - randNumber);
     return (
       <>
         <header>
@@ -69,8 +78,9 @@ class Game extends Component {
             category={ category }
             question={ question }
             correctAnswer={ correctAnswer }
-            allAnswers={ allAnswers.sort(() => Math.random() - randNumber) }
-            nextQuestion={ this.nextQuestion }
+            allAnswers={ randomList }
+            nextQuestion={ this.waitAnswer }
+            isPainted={ isPainted }
           />
         </main>
       </>
