@@ -7,14 +7,14 @@ import { loginCreator } from '../redux/action';
 class Login extends Component {
     state = {
       name: '',
-      email: '',
+      gravatarEmail: '',
       btnDisalbled: true,
     }
 
     validateEmail= () => {
-      const { email, name } = this.state;
+      const { gravatarEmail, name } = this.state;
       const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      if (email.match(regex) && name) {
+      if (gravatarEmail.match(regex) && name) {
         this.setState({ btnDisalbled: false });
       } else {
         this.setState({ btnDisalbled: true });
@@ -45,7 +45,7 @@ class Login extends Component {
     }
 
     render() {
-      const { name, email, btnDisalbled } = this.state;
+      const { name, gravatarEmail, btnDisalbled } = this.state;
       return (
         <form onSubmit={ this.handleClick }>
           <label htmlFor="name">
@@ -62,11 +62,11 @@ class Login extends Component {
           <label htmlFor="email">
             Email
             <input
-              name="email"
+              name="gravatarEmail"
               type="text"
               data-testid="input-gravatar-email"
               id="email"
-              value={ email }
+              value={ gravatarEmail }
               onChange={ this.handleChange }
             />
           </label>

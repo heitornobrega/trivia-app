@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchTriviaApi } from '../services';
 import Question from '../components/Question';
+import { sumScore } from '../redux/action';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
@@ -15,6 +16,7 @@ class Game extends Component {
     category: '',
     question: '',
     correctAnswer: '',
+    difficulty: '',
     allAnswers: [],
     isPainted: false,
     seconds: 30,
@@ -33,7 +35,7 @@ class Game extends Component {
   componentDidUpdate() {
     const { seconds } = this.state;
     if (seconds === TIME_LIMIT) {
-      this.waitAnswer();
+      this.inactivePlayer();
     }
   }
 
@@ -50,6 +52,7 @@ class Game extends Component {
         category: data.results[0].category,
         question: data.results[0].question,
         correctAnswer: data.results[0].correct_answer,
+        difficulty: data.results[0].difficulty,
         allAnswers: data.results[0]
           .incorrect_answers.concat(data.results[0].correct_answer)
           .sort(() => Math.random() - randNumber),
@@ -57,9 +60,25 @@ class Game extends Component {
     }
   }
 
-  waitAnswer = () => {
+  sumScore = () => {
+    const levelScore = { easy: 1, medium: 2, hard: 3 };
+    const defaultValue = 10;
+    const { score, dispatch } = this.props;
+    const { seconds, difficulty } = this.state;
+    const sum = score + (defaultValue + (seconds * levelScore[difficulty]));
+    dispatch(sumScore(sum));
+  }
+
+  inactivePlayer = () => {
     clearInterval(this.myInterval);
     this.setState({ seconds: 30, isPainted: true });
+  }
+
+  waitAnswer = (e) => {
+    const answer = e.target.dataset.testid.split('-')[0];
+    this.setState({ seconds: 30, isPainted: true });
+    if (answer === 'correct') { this.sumScore(); }
+    clearInterval(this.myInterval);
     // this.setState({ seconds: 30 }, () => {
     //   this.myInterval = setInterval(() => {
     //     this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
@@ -77,6 +96,7 @@ class Game extends Component {
       category: allQuestions[nextIndex].category,
       question: allQuestions[nextIndex].question,
       correctAnswer: allQuestions[nextIndex].correct_answer,
+      difficulty: allQuestions[nextIndex].difficulty,
       allAnswers: allQuestions[nextIndex]
         .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
       isPainted: false,
@@ -84,7 +104,7 @@ class Game extends Component {
   }
 
   render() {
-    const { name, email } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     const {
       category,
       question,
@@ -97,11 +117,11 @@ class Game extends Component {
     return (
       <>
         <header>
-          <img data-testid="header-profile-picture" alt="profile-pic" src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` } />
+          <img data-testid="header-profile-picture" alt="profile-pic" src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` } />
           <span data-testid="header-player-name">
             { name}
           </span>
-          <span data-testid="header-score"> 0 </span>
+          <span data-testid="header-score">{score}</span>
         </header>
         <main>
           <Question
@@ -124,11 +144,15 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  name: state.user.name,
-  email: state.user.email,
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
+  assertions: state.player.assertions,
+  score: state.player.score,
 });
 export default connect(mapStateToProps)(Game);
