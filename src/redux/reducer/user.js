@@ -1,8 +1,8 @@
-import { PLAYER_IS_LOGIN, PLAYER_SUM_SCORE } from '../action';
+import { PLAYER_IS_LOGIN, PLAYER_SUM_SCORE, PLAYER_RIGHT_QUESTIONS } from '../action';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -13,6 +13,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
     return { ...state, ...action.payload };
   case PLAYER_SUM_SCORE:
     return { ...state, score: action.payload };
+  case PLAYER_RIGHT_QUESTIONS:
+    return { ...state, assertions: action.payload };
   default:
     return state;
   }

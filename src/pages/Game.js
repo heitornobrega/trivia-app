@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchTriviaApi } from '../services';
 import Question from '../components/Question';
-import { sumScore } from '../redux/action';
+import { sumScore, rightQuestions } from '../redux/action';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
@@ -64,10 +64,12 @@ class Game extends Component {
   sumScore = () => {
     const levelScore = { easy: 1, medium: 2, hard: 3 };
     const defaultValue = 10;
-    const { score, dispatch } = this.props;
+    const { score, dispatch, assertions } = this.props;
     const { seconds, difficulty } = this.state;
+    const rights = assertions + 1;
     const sum = score + (defaultValue + (seconds * levelScore[difficulty]));
     dispatch(sumScore(sum));
+    dispatch(rightQuestions(rights));
   }
 
   inactivePlayer = () => {
@@ -162,6 +164,7 @@ Game.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

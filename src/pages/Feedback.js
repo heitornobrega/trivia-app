@@ -5,19 +5,25 @@ import md5 from 'crypto-js/md5';
 
 class Feedback extends Component {
   render() {
-    const { name, gravatarEmail, score } = this.props;
+    const { name, gravatarEmail, score, assertions } = this.props;
+    const numberThree = 3;
     return (
-      <header>
-        <img
-          data-testid="header-profile-picture"
-          alt="profile-pic"
-          src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
-        />
-        <span data-testid="header-player-name">
-          { name }
+      <>
+        <header>
+          <img
+            data-testid="header-profile-picture"
+            alt="profile-pic"
+            src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
+          />
+          <span data-testid="header-player-name">
+            { name }
+          </span>
+          <span data-testid="header-score">{score}</span>
+        </header>
+        <span data-testid="feedback-text">
+          {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
         </span>
-        <span data-testid="header-score">{score}</span>
-      </header>
+      </>
     );
   }
 }
@@ -29,6 +35,7 @@ Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
 //   dispatch: PropTypes.func.isRequired,
 };
 
