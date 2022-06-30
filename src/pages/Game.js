@@ -20,6 +20,7 @@ class Game extends Component {
     allAnswers: [],
     isPainted: false,
     seconds: 30,
+    showNextButton: false,
   }
 
   async componentDidMount() {
@@ -71,36 +72,39 @@ class Game extends Component {
 
   inactivePlayer = () => {
     clearInterval(this.myInterval);
-    this.setState({ seconds: 30, isPainted: true });
+    this.setState({ seconds: 30, isPainted: true, showNextButton: true });
   }
 
   waitAnswer = (e) => {
     const answer = e.target.dataset.testid.split('-')[0];
-    this.setState({ seconds: 30, isPainted: true });
+    this.setState({ seconds: 30, isPainted: true, showNextButton: true });
     if (answer === 'correct') { this.sumScore(); }
     clearInterval(this.myInterval);
-    // this.setState({ seconds: 30 }, () => {
-    //   this.myInterval = setInterval(() => {
-    //     this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
-    //   }, ONE_SECOND);
-    // });
-    // const halfSecond = 500;
-    // setTimeout(this.nextQuestion, halfSecond);
   }
 
   nextQuestion = () => {
     const { questionIndex, allQuestions } = this.state;
-    const nextIndex = questionIndex + 1;
-    this.setState({
-      questionIndex: nextIndex,
-      category: allQuestions[nextIndex].category,
-      question: allQuestions[nextIndex].question,
-      correctAnswer: allQuestions[nextIndex].correct_answer,
-      difficulty: allQuestions[nextIndex].difficulty,
-      allAnswers: allQuestions[nextIndex]
-        .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
-      isPainted: false,
-    });
+    const { history } = this.props;
+    const numberFour = 4;
+    if (questionIndex === numberFour) {
+      history.push('/feedback');
+    } else {
+      const nextIndex = questionIndex + 1;
+      this.setState({
+        questionIndex: nextIndex,
+        category: allQuestions[nextIndex].category,
+        question: allQuestions[nextIndex].question,
+        correctAnswer: allQuestions[nextIndex].correct_answer,
+        difficulty: allQuestions[nextIndex].difficulty,
+        allAnswers: allQuestions[nextIndex]
+          .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
+        isPainted: false,
+        showNextButton: false,
+      });
+      this.myInterval = setInterval(() => {
+        this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+      }, ONE_SECOND);
+    }
   }
 
   render() {
@@ -112,6 +116,7 @@ class Game extends Component {
       allAnswers,
       isPainted,
       seconds,
+      showNextButton,
     } = this.state;
 
     return (
@@ -133,6 +138,16 @@ class Game extends Component {
             isPainted={ isPainted }
           />
           <h4>{seconds}</h4>
+
+          {showNextButton && (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ this.nextQuestion }
+            >
+              Next
+            </button>
+          )}
         </main>
       </>
     );
