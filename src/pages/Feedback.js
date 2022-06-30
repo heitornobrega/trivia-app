@@ -4,32 +4,44 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 
 class Feedback extends Component {
-  render() {
-    const { name, gravatarEmail, score, assertions } = this.props;
-    const numberThree = 3;
-    return (
-      <>
-        <header>
-          <img
-            data-testid="header-profile-picture"
-            alt="profile-pic"
-            src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
-          />
-          <span data-testid="header-player-name">
-            { name }
-          </span>
-          <span data-testid="header-score">{score}</span>
-        </header>
-        <main>
-          <span data-testid="feedback-text">
-            {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
-          </span>
-          <p data-testid="feedback-total-score">{score}</p>
-          <p data-testid="feedback-total-question">{assertions}</p>
-        </main>
-      </>
-    );
-  }
+    newGame = () => {
+      const { history } = this.props;
+      history.push('/');
+    };
+
+    render() {
+      const { name, gravatarEmail, score, assertions } = this.props;
+      const numberThree = 3;
+      return (
+        <>
+          <header>
+            <img
+              data-testid="header-profile-picture"
+              alt="profile-pic"
+              src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
+            />
+            <span data-testid="header-player-name">
+              { name }
+            </span>
+            <span data-testid="header-score">{score}</span>
+          </header>
+          <main>
+            <span data-testid="feedback-text">
+              {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
+            </span>
+            <p data-testid="feedback-total-score">{score}</p>
+            <p data-testid="feedback-total-question">{assertions}</p>
+            <button
+              data-testid="btn-play-again"
+              type="button"
+              onClick={ this.newGame }
+            >
+              Play Again
+            </button>
+          </main>
+        </>
+      );
+    }
 }
 
 Feedback.propTypes = {
