@@ -24,6 +24,7 @@ class Question extends Component {
                   onClick={ nextQuestion }
                   data-testid={ `wrong-answer-${index}` }
                   className={ isPainted ? 'wrong-answer' : '' }
+                  disabled={ isPainted }
                 >
                   {answear}
                 </button>
@@ -35,6 +36,7 @@ class Question extends Component {
                   onClick={ nextQuestion }
                   data-testid="correct-answer"
                   className={ isPainted ? 'correct-answer' : '' }
+                  disabled={ isPainted }
                 >
                   {answear}
                 </button>

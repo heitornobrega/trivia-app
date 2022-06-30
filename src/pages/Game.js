@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchTriviaApi } from '../services';
 import Question from '../components/Question';
+import { sumScore } from '../redux/action';
+
+const ONE_SECOND = 1000;
+const TIME_LIMIT = 0;
 
 class Game extends Component {
   state = {
@@ -12,18 +16,32 @@ class Game extends Component {
     category: '',
     question: '',
     correctAnswer: '',
+    difficulty: '',
     allAnswers: [],
     isPainted: false,
+    seconds: 30,
   }
 
   async componentDidMount() {
+    this.myInterval = setInterval(() => {
+      this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+    }, ONE_SECOND);
+
     const token = localStorage.getItem('token');
     await fetchTriviaApi(token)
       .then((data) => this.setDataTrivia(data));
   }
 
+  componentDidUpdate() {
+    const { seconds } = this.state;
+    if (seconds === TIME_LIMIT) {
+      this.inactivePlayer();
+    }
+  }
+
   setDataTrivia = (data) => {
     const { history } = this.props;
+    const randNumber = 0.5;
     if (data.results.length === 0) {
       localStorage.setItem('token', '');
       history.push('/');
@@ -34,15 +52,40 @@ class Game extends Component {
         category: data.results[0].category,
         question: data.results[0].question,
         correctAnswer: data.results[0].correct_answer,
+        difficulty: data.results[0].difficulty,
         allAnswers: data.results[0]
-          .incorrect_answers.concat(data.results[0].correct_answer) });
+          .incorrect_answers.concat(data.results[0].correct_answer)
+          .sort(() => Math.random() - randNumber),
+      });
     }
   }
 
-  waitAnswer = () => {
-    this.setState({ isPainted: true });
-    const halfSecond = 500;
-    setTimeout(this.nextQuestion, halfSecond);
+  sumScore = () => {
+    const levelScore = { easy: 1, medium: 2, hard: 3 };
+    const defaultValue = 10;
+    const { score, dispatch } = this.props;
+    const { seconds, difficulty } = this.state;
+    const sum = score + (defaultValue + (seconds * levelScore[difficulty]));
+    dispatch(sumScore(sum));
+  }
+
+  inactivePlayer = () => {
+    clearInterval(this.myInterval);
+    this.setState({ seconds: 30, isPainted: true });
+  }
+
+  waitAnswer = (e) => {
+    const answer = e.target.dataset.testid.split('-')[0];
+    this.setState({ seconds: 30, isPainted: true });
+    if (answer === 'correct') { this.sumScore(); }
+    clearInterval(this.myInterval);
+    // this.setState({ seconds: 30 }, () => {
+    //   this.myInterval = setInterval(() => {
+    //     this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+    //   }, ONE_SECOND);
+    // });
+    // const halfSecond = 500;
+    // setTimeout(this.nextQuestion, halfSecond);
   }
 
   nextQuestion = () => {
@@ -53,6 +96,7 @@ class Game extends Component {
       category: allQuestions[nextIndex].category,
       question: allQuestions[nextIndex].question,
       correctAnswer: allQuestions[nextIndex].correct_answer,
+      difficulty: allQuestions[nextIndex].difficulty,
       allAnswers: allQuestions[nextIndex]
         .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
       isPainted: false,
@@ -60,28 +104,35 @@ class Game extends Component {
   }
 
   render() {
-    const { name, email } = this.props;
-    const { category, question, correctAnswer, allAnswers, isPainted } = this.state;
-    const randNumber = 0.5;
-    const randomList = allAnswers.sort(() => Math.random() - randNumber);
+    const { name, gravatarEmail, score } = this.props;
+    const {
+      category,
+      question,
+      correctAnswer,
+      allAnswers,
+      isPainted,
+      seconds,
+    } = this.state;
+
     return (
       <>
         <header>
-          <img data-testid="header-profile-picture" alt="profile-pic" src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` } />
+          <img data-testid="header-profile-picture" alt="profile-pic" src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` } />
           <span data-testid="header-player-name">
             { name}
           </span>
-          <span data-testid="header-score"> 0 </span>
+          <span data-testid="header-score">{score}</span>
         </header>
         <main>
           <Question
             category={ category }
             question={ question }
             correctAnswer={ correctAnswer }
-            allAnswers={ randomList }
+            allAnswers={ allAnswers }
             nextQuestion={ this.waitAnswer }
             isPainted={ isPainted }
           />
+          <h4>{seconds}</h4>
         </main>
       </>
     );
@@ -93,11 +144,15 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  name: state.user.name,
-  email: state.user.email,
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
+  assertions: state.player.assertions,
+  score: state.player.score,
 });
 export default connect(mapStateToProps)(Game);
