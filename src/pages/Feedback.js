@@ -20,9 +20,13 @@ class Feedback extends Component {
           </span>
           <span data-testid="header-score">{score}</span>
         </header>
-        <span data-testid="feedback-text">
-          {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
-        </span>
+        <main>
+          <span data-testid="feedback-text">
+            {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
+          </span>
+          <p data-testid="feedback-total-score">{score}</p>
+          <p data-testid="feedback-total-question">{assertions}</p>
+        </main>
       </>
     );
   }
