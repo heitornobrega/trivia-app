@@ -88,6 +88,7 @@ class Game extends Component {
     const { questionIndex, allQuestions } = this.state;
     const { history } = this.props;
     const numberFour = 4;
+    const randNumber = 0.5;
     if (questionIndex === numberFour) {
       history.push('/feedback');
     } else {
@@ -99,7 +100,8 @@ class Game extends Component {
         correctAnswer: allQuestions[nextIndex].correct_answer,
         difficulty: allQuestions[nextIndex].difficulty,
         allAnswers: allQuestions[nextIndex]
-          .incorrect_answers.concat(allQuestions[nextIndex].correct_answer),
+          .incorrect_answers.concat(allQuestions[nextIndex].correct_answer)
+          .sort(() => Math.random() - randNumber),
         isPainted: false,
         showNextButton: false,
       });
