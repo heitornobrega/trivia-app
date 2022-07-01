@@ -2,8 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
+import { clearScore } from '../redux/action';
 
 class Feedback extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    if (localStorage.getItem('items')) {
+      const listItems = JSON.parse(localStorage.getItem('items'));
+      const { name, gravatarEmail, score, assertions } = this.props;
+      const database = { name, gravatarEmail, score, assertions };
+      listItems.push(database);
+      localStorage.setItem('items', JSON.stringify(listItems));
+    } else {
+      const emptyList = [];
+      const { name, gravatarEmail, score, assertions } = this.props;
+      const database = { name, gravatarEmail, score, assertions };
+      emptyList.push(database);
+      localStorage.setItem('items', JSON.stringify(emptyList));
+    }
+    dispatch(clearScore());
+  }
+
     newGame = () => {
       const { history } = this.props;
       history.push('/');
@@ -64,7 +83,7 @@ Feedback.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
-//   dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

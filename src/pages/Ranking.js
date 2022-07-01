@@ -8,13 +8,23 @@ class Ranking extends Component {
     };
 
     render() {
+      const listRanking = JSON.parse(localStorage.getItem('items'));
+      const rankingPlayers = listRanking.sort((a, b) => Number(b.score)
+      - Number(a.score));
+
       return (
         <>
-          <h1
-            data-testid="ranking-title"
-          >
-            Ranking
-          </h1>
+          <h1 data-testid="ranking-title">Ranking</h1>
+          <ul>
+            {
+              rankingPlayers.map((element, index) => (
+                <li key={ index }>
+                  <p data-testid={ `player-name-${index}` }>{element.name}</p>
+                  <p data-testid={ `player-score-${index}` }>{element.score}</p>
+                </li>
+              ))
+            }
+          </ul>
           <button
             data-testid="btn-go-home"
             type="button"
