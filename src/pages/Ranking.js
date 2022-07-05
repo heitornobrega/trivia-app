@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import md5 from 'crypto-js/md5';
 
 class Ranking extends Component {
     newGame = () => {
@@ -19,6 +20,11 @@ class Ranking extends Component {
             {
               rankingPlayers.map((element, index) => (
                 <li key={ index }>
+                  <img
+                    data-testid={ `header-profile-picture-${index}` }
+                    alt="profile-pic"
+                    src={ `https://www.gravatar.com/avatar/${md5(element.gravatarEmail).toString()}` }
+                  />
                   <p data-testid={ `player-name-${index}` }>{element.name}</p>
                   <p data-testid={ `player-score-${index}` }>{element.score}</p>
                 </li>
