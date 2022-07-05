@@ -10,7 +10,6 @@ import reducer from '../../redux/reducers';
 export const renderWithRouterAndRedux = (component, initialState, route = '/') => {
   const store = createStore(reducer, initialState, applyMiddleware(thunk));
   const history = createMemoryHistory({ initialEntries: [route] });
-
   return {
     ...render(
       <Provider store={ store }>
