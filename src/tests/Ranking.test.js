@@ -5,7 +5,6 @@ import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import userEvent from '@testing-library/user-event';
 import Ranking from '../pages/Ranking';
 import App from '../App';
-import md5 from 'crypto-js/md5';
 
 const initialState = {
     player: {

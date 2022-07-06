@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchTriviaApi } from '../services';
 import Question from '../components/Question';
 import { sumScore, rightQuestions } from '../redux/action';
 
@@ -29,8 +28,11 @@ class Game extends Component {
     }, ONE_SECOND);
 
     const token = localStorage.getItem('token');
-    await fetchTriviaApi(token)
-      .then((data) => this.setDataTrivia(data));
+    const response = await fetch(
+      `https://opentdb.com/api.php?amount=5&token=${token}`,
+    );
+    const data = await response.json();
+    this.setDataTrivia(data);
   }
 
   componentDidUpdate() {
