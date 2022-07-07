@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Question from '../components/Question';
 import { sumScore, rightQuestions } from '../redux/action';
+import '../style/Game.css';
 
 const ONE_SECOND = 1000;
 const TIME_LIMIT = 0;
@@ -126,13 +127,17 @@ class Game extends Component {
     } = this.state;
 
     return (
-      <>
+      <div className="game-container">
         <header>
           <img data-testid="header-profile-picture" alt="profile-pic" src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` } />
           <span data-testid="header-player-name">
             { name}
           </span>
-          <span data-testid="header-score">{score}</span>
+          <span data-testid="header-score">
+            {score}
+            {' '}
+            Pontos
+          </span>
         </header>
         <main>
           <Question
@@ -147,6 +152,7 @@ class Game extends Component {
 
           {showNextButton && (
             <button
+              className="btn-next"
               data-testid="btn-next"
               type="button"
               onClick={ this.nextQuestion }
@@ -155,7 +161,7 @@ class Game extends Component {
             </button>
           )}
         </main>
-      </>
+      </div>
     );
   }
 }
