@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
-import confetti from 'canvas-confetti';
+// import confetti from 'canvas-confetti';
 
 class Ranking extends Component {
     newGame = () => {
@@ -10,13 +10,13 @@ class Ranking extends Component {
       history.push('/');
     };
 
-  componentDidMount = () => {
-    confetti({
-      particleCount: 1000,
-      startVelocity: 30,
-      spread: 500,
-    });
-  }
+  // componentDidMount = () => {
+  //   confetti({
+  //     particleCount: 1000,
+  //     startVelocity: 30,
+  //     spread: 500,
+  //   });
+  // }
 
   render() {
     const listRanking = JSON.parse(localStorage.getItem('items'));
