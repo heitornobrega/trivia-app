@@ -53,8 +53,6 @@ class Ranking extends Component {
         <div
           className="
           bg-green-400
-          px-4
-          md:px-10
           pt-4
           md:pt-7
           pb-5

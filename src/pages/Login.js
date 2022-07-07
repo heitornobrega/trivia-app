@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchApi from '../services/index';
 import { loginCreator } from '../redux/action';
+import '../style/Login.css';
 
 class Login extends Component {
     state = {
@@ -23,8 +24,7 @@ class Login extends Component {
 
     handleChange = ({ target }) => {
       const { name, value } = target;
-      this.setState({ [name]: value });
-      this.validateEmail();
+      this.setState({ [name]: value }, () => this.validateEmail());
     }
 
     handleClick = async (e) => {
@@ -44,48 +44,78 @@ class Login extends Component {
       history.push('/settings');
     }
 
+    inputFocusIn = (e) => {
+      e.target.nextSibling.style.transform = 'scaleX(1)';
+      e.target.nextSibling.style.transformOrigin = 'center';
+    }
+
+    inputFocusOut = (e) => {
+      e.target.nextSibling.style.transform = 'scaleX(0.3)';
+      e.target.nextSibling.style.transformOrigin = 'center';
+    }
+
     render() {
       const { name, gravatarEmail, btnDisalbled } = this.state;
       return (
-        <form onSubmit={ this.handleClick }>
-          <label htmlFor="name">
-            Nome
-            <input
-              name="name"
-              type="text"
-              data-testid="input-player-name"
-              id="name"
-              value={ name }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="email">
-            Email
-            <input
-              name="gravatarEmail"
-              type="text"
-              data-testid="input-gravatar-email"
-              id="email"
-              value={ gravatarEmail }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            type="submit"
-            data-testid="btn-play"
-            // onClick={ this.handleClick }
-            disabled={ btnDisalbled }
-          >
-            Play
-          </button>
-          <button
-            type="button"
-            data-testid="btn-settings"
-            onClick={ this.goSettings }
-          >
-            Settings
-          </button>
-        </form>
+        <main className="main-login">
+          <div className="wrapForm">
+            <div className="logo">
+              TRIVIA GAME
+              <img alt="megaman" src="https://i.gifer.com/origin/47/47b2fabe68ef7ae446317ce671878f50_w200.gif" width={ 80 } />
+            </div>
+            <form onSubmit={ this.handleClick }>
+              <label htmlFor="name" className="label-name">
+                Nome
+                <input
+                  name="name"
+                  type="text"
+                  data-testid="input-player-name"
+                  id="name"
+                  value={ name }
+                  onChange={ this.handleChange }
+                  onFocus={ this.inputFocusIn }
+                  onBlur={ this.inputFocusOut }
+                  placeholder="Digite seu melhor nome"
+                />
+                <div className="" id="teste" />
+              </label>
+              <label htmlFor="email" className="label-email">
+                Email
+                <input
+                  name="gravatarEmail"
+                  type="text"
+                  data-testid="input-gravatar-email"
+                  id="email"
+                  value={ gravatarEmail }
+                  onChange={ this.handleChange }
+                  onFocus={ this.inputFocusIn }
+                  onBlur={ this.inputFocusOut }
+                  placeholder="Digite seu melhor email"
+                />
+                <div className="" id="teste2" />
+              </label>
+              <div className="wrapButtons">
+                <button
+                  type="submit"
+                  data-testid="btn-play"
+                  disabled={ btnDisalbled }
+                  className="btn-enviar"
+                >
+                  Play
+                </button>
+                <button
+                  type="button"
+                  data-testid="btn-settings"
+                  onClick={ this.goSettings }
+                  className="btn-config"
+                >
+                  Settings
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="side" />
+        </main>
       );
     }
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { clearScore } from '../redux/action';
+import '../style/Feedback.css';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -37,7 +38,7 @@ class Feedback extends Component {
       const { name, gravatarEmail, score, assertions } = this.props;
       const numberThree = 3;
       return (
-        <>
+        <div className="feedback-css">
           <header className="header-feedback">
             <img
               className="header-profile-picture"
@@ -97,7 +98,7 @@ class Feedback extends Component {
               Ranking
             </button>
           </main>
-        </>
+        </div>
       );
     }
 }

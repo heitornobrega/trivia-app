@@ -1,0 +1,108 @@
+/* Feedback */
+
+.feedback-css {
+  background-color: #6ADF81;
+  min-height: 100vh;
+}
+
+.feedback-css .header-feedback {
+    background-color: #6ADF81;
+    height: 130px;
+    display: block;
+  }
+
+.feedback-css .header-profile-picture {
+  display: block;
+  margin-left: 120px;
+  animation: go-back 1.3s;
+}
+
+.feedback-css .header-player {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  display: block;
+  margin: 10px;
+  animation: go-back 1.5s;
+}
+
+.feedback-css .header-score {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 35px;
+  margin-left: 150px;
+  display: block;
+  animation: go-back 1.8s;
+}
+
+.feedback-css .feedback-text{
+  
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 35px;
+  animation: go-back 2.1s;
+  margin-left: 10px;
+  display: block;
+  margin-top: 70px;
+  
+}
+
+.feedback-css .feedback-total-score {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 25px;
+  animation: go-back 2.4s;
+  margin-left: 150px;
+}
+
+.feedback-css .feedback-total-question {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 25px;
+  margin-left: 150px;
+  animation: go-back 2.7s;
+}
+
+.feedback-css .btn-play-again {
+  box-sizing: border-box;
+  margin-left: 103px;
+  padding: 10px;
+  border-radius: 70%;
+  display: block;
+  animation: go-back 3s;
+  height: 40px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+    color: black;
+    background: greenyellow;
+    transition: background 5s;
+  }
+  
+.feedback-css button:hover,
+.feedback-css button:focus {
+  background: red;
+}
+
+.feedback-css .btn-ranking {
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 70%;
+  margin-left: 115px;
+  animation: go-back 3.3s;
+  height: 40px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  color: black;
+  background: yellow;
+  transition: background 5s;
+}
+
+.feedback-css button:hover,
+.feedback-css button:focus {
+  background: red;
+}
+
+@keyframes go-back {
+  0% {
+      transform: translateX(150px);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
