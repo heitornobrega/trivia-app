@@ -12,9 +12,9 @@ class Ranking extends Component {
 
   componentDidMount = () => {
     confetti({
-      particleCount: 500,
-      startVelocity: 50,
-      spread: 360,
+      particleCount: 1000,
+      startVelocity: 30,
+      spread: 500,
     });
   }
 
@@ -26,14 +26,13 @@ class Ranking extends Component {
     return (
       <div className="w-full">
         <div
-          className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 dark:bg-gray-700
-             rounded-tl-lg rounded-tr-lg"
+          className="px-4 md:px-10 py-4 md:py-7 bg-green-400"
         >
-          <div className="sm:flex items-center justify-between">
+          <div className="sm:flex items-center justify-between bg-green-400">
             <h1
-              className="font-VT323 font-9xl"
+              className="font-VT323 text-5xl"
             >
-              RANKING
+              R   A   N   K   I   N   G
 
             </h1>
             <div>
@@ -53,36 +52,43 @@ class Ranking extends Component {
         </div>
         <div
           className="
-            bg-red-500
-              shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto"
+          bg-green-400
+          shadow px-4
+          md:px-10
+          pt-4
+          md:pt-7
+          pb-5
+          overflow-y-auto
+          w-full
+          flex
+          flex-col
+          items-center"
         >
-          <table className="w-full whitespace-nowrap">
+          <table className="w-1/2 rounded-lg">
             <thead>
               <tr
                 tabIndex="0"
                 className="focus:outline-none
-                   h-16 w-full text-sm leading-none text-gray-800 dark:text-white "
+                   h-16 w-full text-sm leading-none text-gray-800"
               >
-                <th className="font-normal text-left pl-2">Position</th>
-                <th className="font-normal text-left pl-4">Player</th>
-                <th className="font-normal text-left pl-12">Score</th>
+                <th className="font-bold text-3xl text-center pl-2">Position</th>
+                <th className="font-bold text-3xl text-center pl-2">Player</th>
+                <th className="font-bold text-3xl text-center pl-2">Score</th>
               </tr>
             </thead>
-            <tbody className="w-full">
+            <tbody className="w-full rounded-lg">
               {
                 rankingPlayers.map((element, index) => (
                   <tr
                     key={ index }
                     tabIndex="0"
-                    className="h-20 text-sm
-                        text-gray-800 dark:text-white  bg-gray-400
-                        border-b border-t border-gray-100 "
+                    className="h-20 bg-green-300
+                     border-b border-t border-gray-100 rounded-lg"
                   >
                     <td>
                       <div className="w-13 h-13">
-                        <h1 className="w-full h-full font-2xl">
+                        <h1 className="w-full h-full font-2xl text-center">
                           {index + 1}
-                          {' '}
                           °
                         </h1>
                       </div>
@@ -97,31 +103,30 @@ class Ranking extends Component {
                             src={ `https://www.gravatar.com/avatar/${md5(element.gravatarEmail).toString()}` }
                           />
                         </div>
-                        <div className="pl-4">
+                        <div className="pl-4 flex justify-center items-center">
                           <p
-                            className="font-bold"
+                            className="font-bold text-2xl"
                             data-testid={ `player-name-${index}` }
                           >
                             {element.name}
                           </p>
-                          <p
-                            className="text-xs leading-3 text-gray-600
-                              dark:text-gray-200  pt-2"
+                          {/* <p
+                            className="text-s leading-3 text-gray-600
+                              pt-2"
                             data-testid={ `player-score-${index}` }
                           >
                             {element.gravatarEmail}
-                          </p>
+                          </p> */}
                           <p
                             className="text-xs
-                                leading-3 text-gray-600 dark:text-gray-200  pt-2"
+                                leading-3 text-gray-600 pt-2"
                           />
                         </div>
                       </div>
                     </td>
                     <td className="pl-12">
                       <p
-                        className="text-sm font-bold
-                             leading-none text-gray-800 dark:text-white"
+                        className="text-2xl font-bold leading-none text-black"
                         data-testid={ `player-score-${index}` }
                       >
                         {element.score}
