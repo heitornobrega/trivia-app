@@ -24,8 +24,7 @@ class Login extends Component {
 
     handleChange = ({ target }) => {
       const { name, value } = target;
-      this.setState({ [name]: value });
-      this.validateEmail();
+      this.setState({ [name]: value }, () => this.validateEmail());
     }
 
     handleClick = async (e) => {
