@@ -24,7 +24,7 @@ class Ranking extends Component {
       - Number(a.score));
 
     return (
-      <div className="w-full">
+      <div className="w-full h-screen bg-green-400">
         <div
           className="px-4 md:px-10 py-4 md:py-7 bg-green-400"
         >
@@ -39,13 +39,13 @@ class Ranking extends Component {
               <button
                 className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600
                      inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start
-                      px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none
+                      px-6 py-3 bg-green-700 hover:bg-green-500 focus:outline-none
                       rounded"
                 data-testid="btn-go-home"
                 type="button"
                 onClick={ this.newGame }
               >
-                <p className="text-sm font-medium leading-none text-white">Go Home</p>
+                <p className="text-bold text-white h-full w-full">Go Home</p>
               </button>
             </div>
           </div>
@@ -53,7 +53,7 @@ class Ranking extends Component {
         <div
           className="
           bg-green-400
-          shadow px-4
+          px-4
           md:px-10
           pt-4
           md:pt-7
