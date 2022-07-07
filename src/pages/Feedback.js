@@ -38,24 +38,50 @@ class Feedback extends Component {
       const numberThree = 3;
       return (
         <>
-          <header>
+          <header className="header-feedback">
             <img
+              className="header-profile-picture"
               data-testid="header-profile-picture"
               alt="profile-pic"
               src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
             />
-            <span data-testid="header-player-name">
+            <span
+              className="header-player"
+              data-testid="header-player-name"
+            >
               { name }
             </span>
-            <span data-testid="header-score">{score}</span>
+            <span
+              className="header-score"
+              data-testid="header-score"
+            >
+              {score}
+
+            </span>
           </header>
           <main>
-            <span data-testid="feedback-text">
+            <span
+              className="feedback-text"
+              data-testid="feedback-text"
+            >
               {assertions < numberThree ? 'Could be better...' : 'Well Done!'}
             </span>
-            <p data-testid="feedback-total-score">{score}</p>
-            <p data-testid="feedback-total-question">{assertions}</p>
+            <p
+              className="feedback-total-score"
+              data-testid="feedback-total-score"
+            >
+              {score}
+
+            </p>
+            <p
+              className="feedback-total-question"
+              data-testid="feedback-total-question"
+            >
+              {assertions}
+
+            </p>
             <button
+              className="btn-play-again"
               data-testid="btn-play-again"
               type="button"
               onClick={ this.newGame }
@@ -63,6 +89,7 @@ class Feedback extends Component {
               Play Again
             </button>
             <button
+              className="btn-ranking"
               data-testid="btn-ranking"
               type="button"
               onClick={ this.rankingList }
