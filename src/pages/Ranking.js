@@ -15,7 +15,7 @@ class Ranking extends Component {
 
       return (
         <>
-          <h1 data-testid="ranking-title">Ranking</h1>
+          <h1 data-testid="ranking-title" className="bg-red-500">Ranking</h1>
           <ul>
             {
               rankingPlayers.map((element, index) => (
