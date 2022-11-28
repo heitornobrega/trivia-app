@@ -1,10 +1,10 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# Description
+Trivia game where you can log in, play and view your score in a ranking. The game was developed with a team using Kanban, React, Redux and Jest.
+# Demo
+[click here to see the application running](https://trivia-app-livid.vercel.app/"TrivaApp").
+# Technologies
+* JavaScript
+* React.js
+* React Router
+* Redux
+* Jest
