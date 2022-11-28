@@ -11,7 +11,7 @@ class Settings extends Component {
         >
           Settings
         </h1>
-        <div className="img">
+        <div className="img-settings">
           <img src={ Imagem } alt="construção" />
         </div>
       </div>

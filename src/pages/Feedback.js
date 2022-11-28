@@ -52,15 +52,15 @@ class Feedback extends Component {
             >
               { name }
             </span>
-            <span
+            {/* <span
               className="header-score"
               data-testid="header-score"
             >
               {score}
 
-            </span>
+            </span> */}
           </header>
-          <main>
+          <main className="feedback-main">
             <span
               className="feedback-text"
               data-testid="feedback-text"
@@ -72,6 +72,8 @@ class Feedback extends Component {
               data-testid="feedback-total-score"
             >
               {score}
+              {' '}
+              Score
 
             </p>
             <p
@@ -79,6 +81,7 @@ class Feedback extends Component {
               data-testid="feedback-total-question"
             >
               {assertions}
+              Acertos
 
             </p>
             <button

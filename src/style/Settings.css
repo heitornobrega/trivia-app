@@ -1,23 +1,23 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
 .id-tittle {
+  align-items: center;
+  background-color: #6adf81;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   margin: 0;
+  min-height: 100vh;
   padding: 0;
-  text-align: left;
-  padding: 20px;
   padding-top: 5px;
+  text-align: left;
 }
 
-.img {
+.img-settings {
   box-sizing: border-box;
   display: block;
+  margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
-  margin-bottom: auto;
-  padding: 25px;
-  width: 35%;
-  background-color: #6ADF81;
 }
-
-
 

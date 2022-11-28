@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { decodeEntity } from 'html-entities';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -55,7 +56,7 @@ class Game extends Component {
         questionIndex: 0,
         allQuestions: data.results,
         category: data.results[0].category,
-        question: data.results[0].question,
+        question: decodeEntity(data.results[0].question),
         correctAnswer: data.results[0].correct_answer,
         difficulty: data.results[0].difficulty,
         allAnswers: data.results[0]

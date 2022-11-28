@@ -1,108 +1,124 @@
+/* stylelint-disable rule-empty-line-before */
+
+/* stylelint-disable no-duplicate-selectors */
+
+/* stylelint-disable font-family-name-quotes */
+
 /* Feedback */
 
 .feedback-css {
-  background-color: #6ADF81;
+  align-items: center;
+  background-color: #6adf81;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 100vh;
 }
 
 .feedback-css .header-feedback {
-    background-color: #6ADF81;
-    height: 130px;
-    display: block;
-  }
+  background-color: #6adf81;
+  display: block;
+  height: 130px;
+}
 
 .feedback-css .header-profile-picture {
-  display: block;
-  margin-left: 120px;
   animation: go-back 1.3s;
+  display: block;
+
 }
 
 .feedback-css .header-player {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 30px;
-  display: block;
-  margin: 10px;
+
+  /* align-self: center; */
   animation: go-back 1.5s;
+  display: block;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 30px;
+  margin: 10px;
 }
 
 .feedback-css .header-score {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 35px;
-  margin-left: 150px;
-  display: block;
   animation: go-back 1.8s;
+  display: block;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 35px;
+
 }
 
-.feedback-css .feedback-text{
-  
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 35px;
+.feedback-css .feedback-text {
   animation: go-back 2.1s;
-  margin-left: 10px;
   display: block;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 35px;
   margin-top: 70px;
-  
+
 }
 
 .feedback-css .feedback-total-score {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 25px;
   animation: go-back 2.4s;
-  margin-left: 150px;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 25px;
+
 }
 
 .feedback-css .feedback-total-question {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 25px;
-  margin-left: 150px;
   animation: go-back 2.7s;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 25px;
+
 }
 
 .feedback-css .btn-play-again {
-  box-sizing: border-box;
-  margin-left: 103px;
-  padding: 10px;
-  border-radius: 70%;
-  display: block;
   animation: go-back 3s;
-  height: 40px;
-  font-family: 'Courier New', Courier, monospace;
+  background: greenyellow;
+  border-radius: 70%;
+  box-sizing: border-box;
+  color: black;
+  display: block;
+  font-family: 'Courier New' , Courier , monospace;
   font-size: 15px;
-    color: black;
-    background: greenyellow;
-    transition: background 5s;
-  }
-  
-.feedback-css button:hover,
-.feedback-css button:focus {
+  height: 40px;
+  padding: 10px;
+  transition: background 5s;
+}
+
+.feedback-css button:hover, .feedback-css button:focus {
   background: red;
 }
 
 .feedback-css .btn-ranking {
+  animation: go-back 3.3s;
+  background: yellow;
+  border-radius: 70%;
   box-sizing: border-box;
+  color: black;
+  font-family: 'Courier New' , Courier , monospace;
+  font-size: 15px;
+  height: 40px;
   margin: 10px;
   padding: 10px;
-  border-radius: 70%;
-  margin-left: 115px;
-  animation: go-back 3.3s;
-  height: 40px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 15px;
-  color: black;
-  background: yellow;
   transition: background 5s;
 }
 
-.feedback-css button:hover,
-.feedback-css button:focus {
+.feedback-main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feedback-css button:hover, .feedback-css button:focus {
   background: red;
 }
 
+
 @keyframes go-back {
+
   0% {
-      transform: translateX(150px);
+    transform: translateX(150px);
   }
+
   100% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 }
